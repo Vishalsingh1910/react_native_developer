@@ -21,10 +21,10 @@ const skills = [
 
 const projects = [
   {
-    name: "Cookify",
+    name: "Cooking Buddy",
     subtitle: "Recipe Discovery App",
     role: "Solo Developer",
-    period: "2024",
+    period: "2025",
     description:
       "A comprehensive mobile app for discovering, saving, and organizing cooking recipes with AI-powered personalized recommendations and social features.",
     tech: ["React Native", "Expo", "Supabase", "React Navigation", "TypeScript"],
