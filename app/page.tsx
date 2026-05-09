@@ -119,11 +119,11 @@ export default function PortfolioOS() {
       </div>
 
       {/* Outer label bottom */}
-      <div className="os-label-bottom">
+      {/* <div className="os-label-bottom">
         <span>BUILT WITH PRECISION</span>
         <span className="os-label-dot">•</span>
         <span>REACT NATIVE DEVELOPER</span>
-      </div>
+      </div> */}
     </main>
   )
 }

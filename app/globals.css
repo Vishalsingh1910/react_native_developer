@@ -198,7 +198,7 @@ body > div > div {
  */
 
 :root {
-  --phone-ratio: calc(375 / 780);  /* width ÷ height            */
+  --phone-ratio: calc(375 / 800);  /* width ÷ height            */
 
   /*
    * Labels are absolute/fixed so they DON'T consume flex space.
@@ -209,7 +209,7 @@ body > div > div {
   --phone-padding-h: 10px;
 
   /* Fill viewport height (labels are out of flow) */
-  --phone-h: min(780px, calc(100dvh - var(--phone-padding-v) * 2));
+  --phone-h: min(670px, calc(85dvh - var(--phone-padding-v) * 2));
 
   /* Width from height × ratio; also capped at natural max and viewport */
   --phone-w: min(375px, calc(var(--phone-h) * var(--phone-ratio)), calc(100dvw - var(--phone-padding-h) * 2));
@@ -237,6 +237,7 @@ body > div > div {
     0 0 60px rgba(108,99,255,0.15),
     inset 0 0 0 1px rgba(255,255,255,0.06);
   flex-shrink: 0;
+  margin-top: 100px;
 }
 
 /* Side buttons — scale position with phone size */
