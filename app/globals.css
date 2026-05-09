@@ -25,12 +25,26 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior: none;
+  /* Hard-lock scroll on the page itself — the phone screen scrolls internally */
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/*
+ * Next.js injects a root <div> between <body> and the page component.
+ * Lock it so no intermediate wrapper can expand beyond the viewport.
+ */
+body > div,
+body > div > div {
+  height: 100dvh;
+  overflow: hidden;
 }
 
 /* ── Outer Page Layout ──────────────────────────────── */
 
 .portfolio-os-wrapper {
-  min-height: 100vh;
+  /* Exact 100dvh — no scroll ever */
+  height: 100dvh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -38,9 +52,9 @@ html, body {
   position: relative;
   background: var(--bg-deep);
   overflow: hidden;
-  padding: 24px 16px;
+  padding: var(--phone-padding-v) var(--phone-padding-h);
   flex-direction: column;
-  gap: 24px;
+  gap: 0;            /* gap is irrelevant when labels are absolute on mobile */
 }
 
 /* Background ambient glows */
@@ -94,76 +108,128 @@ html, body {
 
 /* ── Outer Labels ──────────────────────────────────── */
 
+/*
+ * Labels are absolutely positioned at ALL sizes so they never
+ * participate in flex layout and cannot push the phone frame.
+ * On desktop they move to fixed corners; on mobile they float
+ * at the top/bottom of the wrapper.
+ */
 .os-label-topleft {
-  position: relative;
-  z-index: 10;
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  order: -1;
+  pointer-events: none;
 }
 
 .os-label-name {
   color: rgba(255,255,255,0.85);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: -0.3px;
+  white-space: nowrap;
 }
 
 .os-label-role {
   color: var(--purple);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .os-label-bottom {
-  position: relative;
-  z-index: 10;
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
   color: rgba(255,255,255,0.2);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
   display: flex;
   align-items: center;
   gap: 8px;
+  pointer-events: none;
+  white-space: nowrap;
 }
 
 .os-label-dot {
   color: var(--purple);
 }
 
+/* On desktop, pin to fixed corners */
 @media (min-width: 768px) {
   .os-label-topleft {
     position: fixed;
     top: 32px;
     left: 40px;
+    transform: none;
     align-items: flex-start;
-    order: unset;
   }
 
   .os-label-bottom {
     position: fixed;
     bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .portfolio-os-wrapper {
     flex-direction: row;
-    gap: 0;
   }
 }
 
 /* ── Phone Frame ──────────────────────────────────── */
+/*
+ * Fluid phone frame:
+ * Phone natural ratio = 375 / 780 ≈ 0.481 (width / height)
+ * We try to fill the available viewport height first (100dvh - padding).
+ * If the resulting width would exceed the available viewport width we
+ * clamp to the viewport width instead.
+ * On desktop the frame never exceeds 375 × 780.
+ */
+
+:root {
+  --phone-ratio: calc(375 / 780);  /* width ÷ height            */
+
+  /*
+   * Labels are absolute/fixed so they DON'T consume flex space.
+   * We reserve only a small visual gap at top & bottom so the frame
+   * doesn't touch the edge on very small screens.
+   */
+  --phone-padding-v: 12px;
+  --phone-padding-h: 10px;
+
+  /* Fill viewport height (labels are out of flow) */
+  --phone-h: min(780px, calc(100dvh - var(--phone-padding-v) * 2));
+
+  /* Width from height × ratio; also capped at natural max and viewport */
+  --phone-w: min(375px, calc(var(--phone-h) * var(--phone-ratio)), calc(100dvw - var(--phone-padding-h) * 2));
+
+  /* Recalculate actual height in case width got clamped first */
+  --phone-actual-h: min(var(--phone-h), calc(var(--phone-w) / var(--phone-ratio)));
+
+  /* Scale border-radius proportionally (52px at 375px wide) */
+  --phone-radius: calc(52px * (var(--phone-w) / 375px));
+  --screen-radius: calc(44px * (var(--phone-w) / 375px));
+  --screen-inset: calc(10px * (var(--phone-w) / 375px));
+}
 
 .phone-frame {
   position: relative;
   z-index: 10;
-  width: 375px;
-  height: 780px;
+  width: var(--phone-w);
+  height: var(--phone-actual-h);
   background: #0A0A12;
-  border-radius: 52px;
+  border-radius: var(--phone-radius);
   border: 1.5px solid rgba(255,255,255,0.12);
   box-shadow:
     0 0 0 1px rgba(0,0,0,0.8),
@@ -173,7 +239,7 @@ html, body {
   flex-shrink: 0;
 }
 
-/* Side buttons */
+/* Side buttons — scale position with phone size */
 .phone-btn-vol-up,
 .phone-btn-vol-down,
 .phone-btn-power {
@@ -184,30 +250,30 @@ html, body {
 
 .phone-btn-vol-up {
   left: -3px;
-  top: 120px;
+  top: calc(120px * (var(--phone-actual-h) / 780px));
   width: 3px;
-  height: 36px;
+  height: calc(36px * (var(--phone-actual-h) / 780px));
 }
 
 .phone-btn-vol-down {
   left: -3px;
-  top: 168px;
+  top: calc(168px * (var(--phone-actual-h) / 780px));
   width: 3px;
-  height: 36px;
+  height: calc(36px * (var(--phone-actual-h) / 780px));
 }
 
 .phone-btn-power {
   right: -3px;
-  top: 140px;
+  top: calc(140px * (var(--phone-actual-h) / 780px));
   width: 3px;
-  height: 64px;
+  height: calc(64px * (var(--phone-actual-h) / 780px));
 }
 
 /* Screen area */
 .phone-screen {
   position: absolute;
-  inset: 10px;
-  border-radius: 44px;
+  inset: var(--screen-inset);
+  border-radius: var(--screen-radius);
   overflow: hidden;
   background: #0D0B1E;
   isolation: isolate;
@@ -215,12 +281,12 @@ html, body {
 
 /* ── Utilities ────────────────────────────────────── */
 
-/* Custom scrollbar inside phone */
+/* Hide scrollbar inside phone */
 .phone-screen ::-webkit-scrollbar {
   width: 0px;
 }
 
-/* Smooth transitions */
+/* Smooth interactions */
 * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -233,17 +299,10 @@ html, body {
   overflow: hidden;
 }
 
-/* Responsive scaling on small screens */
-@media (max-width: 420px) {
-  .phone-frame {
-    width: calc(100vw - 24px);
-    height: calc((100vw - 24px) * 2.08);
-    max-height: 90vh;
-    border-radius: 40px;
-  }
-
-  .phone-screen {
-    inset: 8px;
-    border-radius: 34px;
+/* On very short screens (landscape) shrink padding to near-zero */
+@media (max-height: 450px) {
+  :root {
+    --phone-padding-v: 4px;
+    --phone-padding-h: 4px;
   }
 }
