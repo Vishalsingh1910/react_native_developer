@@ -237,7 +237,7 @@ body > div > div {
     0 0 60px rgba(108,99,255,0.15),
     inset 0 0 0 1px rgba(255,255,255,0.06);
   flex-shrink: 0;
-  margin-top: 100px;
+  margin-top: 40px;
 }
 
 /* Side buttons — scale position with phone size */
