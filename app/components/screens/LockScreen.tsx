@@ -37,7 +37,7 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
       time: "now",
       icon: "🚀",
       iconBg: "#6C63FF",
-      title: "Project 'Cooking Buddy' is now Live",
+      title: "Project 'Cooking Buddy' soon gonna go live!",
       body: "A new recipe discovery app with AI features has been added to the showcase.",
     },
     {
@@ -48,20 +48,26 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
       title: "Consistency is King",
       body: "100+ contributions tracked this month in open source repositories.",
     },
-    {
-      app: "SYSTEM",
-      time: "1h ago",
-      icon: "👤",
-      iconBg: "#3D3757",
-      title: "Experience Updated",
-      body: "React Native Developer profile has been updated with new skills.",
-    },
+    // {
+    //   app: "SYSTEM",
+    //   time: "1h ago",
+    //   icon: "👤",
+    //   iconBg: "#3D3757",
+    //   title: "Experience Updated",
+    //   body: "React Native Developer profile has been updated with new skills.",
+    // },
   ]
 
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col"
-      style={{ background: "linear-gradient(180deg, #0D0B2E 0%, #0A0818 100%)" }}
+      className="absolute inset-0"
+      style={{
+        background: "linear-gradient(180deg, #0D0B2E 0%, #0A0818 100%)",
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        overflow: "hidden",
+      }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ y: "-100%", opacity: 0 }}
@@ -99,67 +105,108 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
         </h1>
       </div>
 
-      {/* Notifications */}
-      <div className="flex-1 px-4 space-y-4 pb-32 overflow-y-auto" style={{margin: 8}}>
-        {notifications.map((n, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 + i * 0.1, duration: 0.4 }}
-            className="rounded-3xl px-5 py-4 shadow-xl"
-            style={{
-              background: "rgba(255,255,255,0.07)",
-              backdropFilter: "blur(30px)",
-              border: "1px solid rgba(255,255,255,0.08)",
-            }}
-          >
-            <div className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg flex-shrink-0" style={{ background: n.iconBg }}>
-                {n.icon}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between mb-0.5">
-                  <span className="text-white/80 text-[10px] font-semibold tracking-wider">{n.app}</span>
-                  <span className="text-white/70 text-[10px]">{n.time}</span>
-                </div>
-                <p className="text-white text-[13px] font-semibold leading-tight">{n.title}</p>
-                <p className="text-white/85 text-[12px] leading-tight mt-0.5">{n.body}</p>
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+      {/* Scrollable middle + pinned bottom — single flex column taking remaining height */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0, overflow: "hidden" }}>
 
-      {/* Bottom Actions */}
-      <div className="px-8 pb-4">
-        <div className="flex justify-between items-center mb-6">
-          <button className="w-12 h-12 rounded-full flex items-center justify-center" style={{ background: "rgba(255,255,255,0.15)" }}>
-            <span className="text-xl">📄</span>
-          </button>
-          <button className="w-12 h-12 rounded-full flex items-center justify-center" style={{ background: "rgba(255,255,255,0.15)" }}>
-            <span className="text-xl">✉️</span>
-          </button>
+        {/* Notifications — scrolls freely */}
+        <div style={{ flex: 1, overflowY: "auto", minHeight: 0, padding: "8px 16px", display: "flex", flexDirection: "column", gap: 12 }}>
+          {notifications.map((n, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.15 + i * 0.1, duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+              style={{
+                borderRadius: 20,
+                background: "linear-gradient(135deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.05) 100%)",
+                backdropFilter: "blur(40px)",
+                WebkitBackdropFilter: "blur(40px)",
+                border: "1px solid rgba(255,255,255,0.14)",
+                // Top-edge highlight — the "good edge" the user wants
+                boxShadow: `
+                  0 1px 0 0 rgba(255,255,255,0.18) inset,
+                  0 -1px 0 0 rgba(0,0,0,0.2) inset,
+                  0 8px 32px rgba(0,0,0,0.25),
+                  0 2px 8px rgba(0,0,0,0.15)
+                `,
+                overflow: "hidden",
+                display: "flex",
+                alignItems: "stretch",
+              }}
+            >
+              {/* Left accent bar */}
+              <div style={{ width: 3, background: n.iconBg, flexShrink: 0, borderRadius: "20px 0 0 20px", opacity: 0.85 }} />
+
+              {/* Card body */}
+              <div style={{ flex: 1, padding: "12px 14px 12px 12px" }}>
+                {/* Header row */}
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 7 }}>
+                  {/* App icon */}
+                  <div
+                    style={{
+                      width: 28, height: 28, borderRadius: 8, flexShrink: 0,
+                      background: n.iconBg,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: 14,
+                      boxShadow: `0 0 10px ${n.iconBg}55`,
+                    }}
+                  >
+                    {n.icon}
+                  </div>
+                  <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.08em", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", flex: 1 }}>
+                    {n.app}
+                  </span>
+                  <span style={{ fontSize: 10, color: "rgba(255,255,255,0.45)" }}>{n.time}</span>
+                </div>
+
+                {/* Title */}
+                <p style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.95)", lineHeight: 1.3, margin: 0, marginBottom: 3 }}>
+                  {n.title}
+                </p>
+                {/* Body */}
+                <p style={{ fontSize: 11.5, color: "rgba(255,255,255,0.6)", lineHeight: 1.4, margin: 0 }}>
+                  {n.body}
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        <motion.button
-          onClick={onUnlock}
-          className="w-full flex justify-center items-center py-4 bg-transparent border-none outline-none"
-          whileTap={{ scale: 0.98 }}
-        >
-          <motion.span
-            className="text-white/65 text-sm font-medium tracking-wide"
-            animate={{ opacity: [0.45, 1, 0.45] }}
-            transition={{
-              repeat: Infinity,
-              duration: 2,
-              ease: "easeInOut",
-            }}
-            style={{ color: "whitesmoke"}}
+        {/* Bottom Actions — always at the very bottom of the phone frame */}
+        <div style={{ flexShrink: 0, padding: "12px 32px 24px", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+          {/* Quick-action icons */}
+          {/* <div className="flex justify-between items-center w-full">
+            <button
+              className="w-16 h-16 rounded-2xl flex items-center justify-center"
+              style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.1)" }}
+            >
+              <span className="text-3xl">📄</span>
+            </button>
+            <button
+              className="w-16 h-16 rounded-2xl flex items-center justify-center"
+              style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.1)" }}
+            >
+              <span className="text-3xl">✉️</span>
+            </button>
+          </div> */}
+
+          {/* Swipe to unlock */}
+          <motion.button
+            onClick={onUnlock}
+            className="w-full flex justify-center items-center py-3 bg-transparent border-none outline-none"
+            whileTap={{ scale: 0.98 }}
           >
-            Swipe up to unlock
-          </motion.span>
-        </motion.button>
+            <motion.span
+              className="text-sm font-medium tracking-wide"
+              animate={{ opacity: [0.45, 1, 0.45] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              style={{ color: "whitesmoke" }}
+            >
+              Tap here to unlock
+            </motion.span>
+          </motion.button>
+        </div>
+
       </div>
     </motion.div>
   )
