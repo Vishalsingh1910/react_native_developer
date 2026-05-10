@@ -100,7 +100,7 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
       </div>
 
       {/* Notifications */}
-      <div className="flex-1 px-4 space-y-4 pb-32 overflow-y-auto">
+      <div className="flex-1 px-4 space-y-4 pb-32 overflow-y-auto" style={{margin: 8}}>
         {notifications.map((n, i) => (
           <motion.div
             key={i}
