@@ -78,7 +78,7 @@ export default function PortfolioOS() {
               <HomeScreen
                 key="home"
                 onNavigate={navigate}
-                onOpenControlCenter={() => setControlCenterOpen(true)}
+                onOpenControlCenter={() => setControlCenterOpen(!controlCenterOpen)}
               />
             )}
             {screen === "about" && (

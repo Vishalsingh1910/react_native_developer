@@ -40,7 +40,7 @@ export default function HomeScreen({ onNavigate, onOpenControlCenter }: HomeScre
   return (
     <motion.div
       className="absolute inset-0 flex flex-col overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #0E0C2E 0%, #080618 100%)" }}
+      style={{ flex: 1, width: "100%" }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 0.96 }}
@@ -49,15 +49,14 @@ export default function HomeScreen({ onNavigate, onOpenControlCenter }: HomeScre
       <StatusBar />
 
       {/* Dynamic Island - "OPEN FOR ROLES" */}
-      <div className="flex justify-center mt-1 mb-3">
+      {/* <div className="flex justify-center mt-1 mb-3">
         <div className="bg-black rounded-full flex items-center gap-2 px-3 h-7 min-w-[110px]">
           <span className="w-2 h-2 rounded-full bg-[#00FF88] animate-pulse flex-shrink-0" />
           <span className="text-white text-[11px] font-semibold tracking-wide">OPEN FOR ROLES</span>
         </div>
-      </div>
+      </div> */}
 
       <div className="flex-1 overflow-y-auto px-4 space-y-4 pb-4">
-        {/* Widgets Row */}
         <div className="grid grid-cols-2 gap-3">
           <div className="rounded-2xl p-3" style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)" }}>
             <div className="text-white/40 text-[10px] font-semibold tracking-widest mb-1">GITHUB</div>
@@ -77,7 +76,6 @@ export default function HomeScreen({ onNavigate, onOpenControlCenter }: HomeScre
           </div>
         </div>
 
-        {/* App Grid Row 1 */}
         <div className="grid grid-cols-4 gap-2">
           <AppIcon icon="⌨️" label="Projects" color="linear-gradient(135deg,#6C63FF,#5046E5)" onClick={() => onNavigate("projects")} />
           <AppIcon icon="⚙️" label="Skills" color="linear-gradient(135deg,#FF9500,#FF6B00)" onClick={() => onNavigate("skills")} />
@@ -85,7 +83,6 @@ export default function HomeScreen({ onNavigate, onOpenControlCenter }: HomeScre
           <AppIcon icon="✉️" label="Contact" color="linear-gradient(135deg,#007AFF,#0056CC)" onClick={() => onNavigate("contact")} />
         </div>
 
-        {/* Featured Project Card */}
         <motion.button
           onClick={() => onNavigate("project-detail", featuredProject)}
           className="w-full rounded-2xl overflow-hidden text-left"
@@ -112,7 +109,6 @@ export default function HomeScreen({ onNavigate, onOpenControlCenter }: HomeScre
           </div>
         </motion.button>
 
-        {/* App Grid Row 2 */}
         <div className="grid grid-cols-4 gap-2">
           <AppIcon icon="📄" label="Resume" color="linear-gradient(135deg,#34C759,#248A3D)" onClick={() => onNavigate("resume")} />
           <AppIcon icon="🔧" label="Tools" color="linear-gradient(135deg,#3D3757,#2D2B45)" onClick={() => onNavigate("skills")} />
@@ -120,21 +116,20 @@ export default function HomeScreen({ onNavigate, onOpenControlCenter }: HomeScre
           <AppIcon icon="ℹ️" label="Info" color="linear-gradient(135deg,#2D3250,#424769)" onClick={() => onNavigate("about")} />
         </div>
 
-        {/* Swipe down hint */}
         <p className="text-center text-white/20 text-[10px]">Swipe from top for Control Center</p>
       </div>
 
       {/* Dock */}
-      <div className="px-6 pb-4">
-        <div className="rounded-3xl p-3 flex justify-around" style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.1)" }}>
+      <div style={{ flexShrink: 0, padding: "12px 18px 12px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div className="rounded-3xl p-3 flex justify-around" >
           <DockIcon icon="📞" color="linear-gradient(135deg,#34C759,#248A3D)" onClick={() => onNavigate("contact")} />
-          <DockIcon icon="🌐" color="linear-gradient(135deg,#007AFF,#0056CC)" />
+          {/* <DockIcon icon="🌐" color="linear-gradient(135deg,#007AFF,#0056CC)" /> */}
           <DockIcon icon="💬" color="linear-gradient(135deg,#34C759,#248A3D)" onClick={() => onNavigate("contact")} />
           <DockIcon icon="⚙️" color="linear-gradient(135deg,#8E8E93,#636366)" onClick={onOpenControlCenter} />
         </div>
-        <div className="flex justify-center mt-2">
+        {/* <div className="flex justify-center mt-2">
           <div className="w-28 h-1 bg-white/20 rounded-full" />
-        </div>
+        </div> */}
       </div>
     </motion.div>
   )

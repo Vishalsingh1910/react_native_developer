@@ -40,14 +40,11 @@ export default function StatusBar({ light = false }: { light?: boolean }) {
           <path d="M7.5 2.5c2.4 0 4.5 1 6 2.6l1-1.1A9 9 0 0 0 7.5.5a9 9 0 0 0-7 3.5l1 1.1A7.2 7.2 0 0 1 7.5 2.5z" />
         </svg>
         {/* Battery */}
-        <div className="flex items-center">
-          <div
-            className="w-[25px] h-[12px] rounded-[3px] border border-white/50 relative flex items-center p-[2px]"
-            style={{ color: "white" }}
-          >
-            <div className="h-full bg-white rounded-[1.5px]" style={{ width: "75%", color: "white" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: "1.5px" }}>
+          <div style={{ position: "relative", width: 20, height: 11, borderRadius: 3, border: "1px solid rgba(255,255,255,0.6)", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: 2, bottom: 2, left: 2, right: 6, borderRadius: 2, background: "white" }} />
           </div>
-          <div className="w-[2px] h-[5px] bg-white/50 rounded-r-sm ml-[1px]" style={{ color: "white" }} />
+          <div style={{ width: 1, height: 5, background: "rgba(255,255,255,0.6)", borderRadius: "0 1px 1px 0" }} />
         </div>
       </div>
     </div>
