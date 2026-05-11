@@ -39,8 +39,7 @@ export default function HomeScreen({ onNavigate, onOpenControlCenter }: HomeScre
 
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col overflow-hidden"
-      style={{ flex: 1, width: "100%" }}
+      style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", flexDirection: "column", overflow: "hidden" }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 0.96 }}
@@ -56,7 +55,7 @@ export default function HomeScreen({ onNavigate, onOpenControlCenter }: HomeScre
         </div>
       </div> */}
 
-      <div className="flex-1 overflow-y-auto px-4 space-y-4 pb-4">
+      <div className="flex-1 overflow-y-auto px-4 space-y-4" style={{ paddingBottom: "96px" }}>
         <div className="grid grid-cols-2 gap-3">
           <div className="rounded-2xl p-3" style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)" }}>
             <div className="text-white/40 text-[10px] font-semibold tracking-widest mb-1">GITHUB</div>
@@ -119,17 +118,13 @@ export default function HomeScreen({ onNavigate, onOpenControlCenter }: HomeScre
         <p className="text-center text-white/20 text-[10px]">Swipe from top for Control Center</p>
       </div>
 
-      {/* Dock */}
-      <div style={{ flexShrink: 0, padding: "12px 18px 12px", display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <div className="rounded-3xl p-3 flex justify-around" >
+      {/* Dock — absolutely pinned to bottom */}
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "10px 18px 16px" }}>
+        <div className="rounded-3xl p-3 flex justify-around">
           <DockIcon icon="📞" color="linear-gradient(135deg,#34C759,#248A3D)" onClick={() => onNavigate("contact")} />
-          {/* <DockIcon icon="🌐" color="linear-gradient(135deg,#007AFF,#0056CC)" /> */}
           <DockIcon icon="💬" color="linear-gradient(135deg,#34C759,#248A3D)" onClick={() => onNavigate("contact")} />
           <DockIcon icon="⚙️" color="linear-gradient(135deg,#8E8E93,#636366)" onClick={onOpenControlCenter} />
         </div>
-        {/* <div className="flex justify-center mt-2">
-          <div className="w-28 h-1 bg-white/20 rounded-full" />
-        </div> */}
       </div>
     </motion.div>
   )
