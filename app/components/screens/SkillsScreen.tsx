@@ -12,9 +12,9 @@ export default function SkillsScreen({ onBack }: SkillsScreenProps) {
     <motion.div
       className="absolute inset-0 flex flex-col"
       style={{ background: "#0D0B1E" }}
-      initial={{ y: "100%" }}
-      animate={{ y: 0 }}
-      exit={{ y: "100%" }}
+      initial={{ x: "100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100%" }}
       transition={{ type: "spring", stiffness: 300, damping: 32 }}
     >
       <StatusBar />

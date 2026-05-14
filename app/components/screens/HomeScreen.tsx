@@ -78,7 +78,7 @@ const DockIcon = ({
           tracking-wide
           leading-none
         "
-        style={{color: "whitesmoke", paddingTop: 2}}
+        style={{ color: "whitesmoke", paddingTop: 2 }}
       >
         {label}
       </span>
@@ -124,20 +124,20 @@ export default function HomeScreen({ onNavigate, onOpenControlCenter }: HomeScre
           <DockIcon icon="⌨️" label="Projects" color="linear-gradient(135deg,#6C63FF,#5046E5)" onClick={() => onNavigate("projects")} />
           <DockIcon icon="⚙️" label="Skills" color="linear-gradient(135deg,#FF9500,#FF6B00)" onClick={() => onNavigate("skills")} />
           <DockIcon icon="👤" label="About" color="linear-gradient(135deg,#2D3250,#424769)" onClick={() => onNavigate("about")} />
-          <DockIcon icon="✉️" label="Contact" color="linear-gradient(135deg,#007AFF,#0056CC)" onClick={() => onNavigate("contact")} />
-        </div>
-        <div className="grid grid-cols-4 gap-3" style={{ background: "transparent" }}>
           <DockIcon icon="📄" label="Resume" color="linear-gradient(135deg,#34C759,#248A3D)" onClick={() => onNavigate("resume")} />
+        </div>
+        {/* <div className="grid grid-cols-4 gap-3" style={{ background: "transparent" }}>
+          <DockIcon icon="✉️" label="Contact" color="linear-gradient(135deg,#007AFF,#0056CC)" onClick={() => onNavigate("contact")} />
           <DockIcon icon="🔧" label="Tools" color="linear-gradient(135deg,#3D3757,#2D2B45)" onClick={() => onNavigate("skills")} />
           <DockIcon icon="📱" label="Gallery" color="linear-gradient(135deg,#1C1C3A,#2D2B45)" onClick={() => onNavigate("projects")} />
           <DockIcon icon="ℹ️" label="Info" color="linear-gradient(135deg,#2D3250,#424769)" onClick={() => onNavigate("about")} />
-        </div>
+        </div> */}
       </div>
 
       {/* Dock — absolutely pinned to bottom */}
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "10px 18px 16px" }}>
         <div className="rounded-3xl p-3 flex justify-around" style={{ background: "transparent" }}>
-          <DockIcon icon="📞" large color="linear-gradient(135deg,#34C759,#248A3D)" onClick={() => window.open("tel:+919033789778", "_self")} />
+          <DockIcon icon="⚙️" large color="linear-gradient(135deg,#8E8E93,#636366)" onClick={onOpenControlCenter} />
           <DockIcon
             color="linear-gradient(135deg,#25D366,#128C7E)"
             large
@@ -149,7 +149,7 @@ export default function HomeScreen({ onNavigate, onOpenControlCenter }: HomeScre
               </svg>
             }
           />
-          <DockIcon icon="⚙️" large color="linear-gradient(135deg,#8E8E93,#636366)" onClick={onOpenControlCenter} />
+          <DockIcon icon="📞" large color="linear-gradient(135deg,#34C759,#248A3D)" onClick={() => window.open("tel:+919033789778", "_self")} />
         </div>
       </div>
     </motion.div>

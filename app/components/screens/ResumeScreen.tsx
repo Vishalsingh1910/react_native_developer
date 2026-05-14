@@ -1,4 +1,5 @@
 "use client"
+
 import { motion } from "framer-motion"
 import { personalInfo } from "../../data/portfolio"
 import StatusBar from "../StatusBar"
@@ -11,95 +12,149 @@ export default function ResumeScreen({ onBack }: ResumeScreenProps) {
   return (
     <motion.div
       className="absolute inset-0 flex flex-col"
-      style={{ background: "#0D0B1E" }}
-      initial={{ y: "100%" }}
-      animate={{ y: 0 }}
-      exit={{ y: "100%" }}
+      style={{ background: "#0D0B1E", width: "100%", height: "100%" }}
+      initial={{ x: "100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100%" }}
       transition={{ type: "spring", stiffness: 300, damping: 32 }}
     >
       <StatusBar />
 
-      {/* Dynamic island */}
-      <div className="flex justify-center mt-1">
-        <div className="w-28 h-7 bg-black rounded-full" />
-      </div>
-
       {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-3">
-        <button onClick={onBack} className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: "rgba(255,255,255,0.1)" }}>
-          <span className="text-white text-lg">‹</span>
+      <div className="flex items-center gap-3 px-6 pt-4 pb-6 mt-4">
+        <button onClick={onBack} className="w-12 h-12 rounded-full flex items-center justify-center border border-white/20" style={{ background: "rgba(255,255,255,0.15)" }}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
         </button>
-        <h1 className="text-white text-[17px] font-semibold flex-1 text-center">Resume</h1>
-        <div className="w-8" />
+        <h1 className="text-white text-[20px] font-bold flex-1 text-center pr-12">Resume</h1>
       </div>
+      <div className="space-y-5">
+        {/* Resume Button */}
+        <motion.a
+          whileTap={{ scale: 0.98 }}
+          href={personalInfo.resumeUrl}
+          target="_blank"
+          className="
+      relative
+      overflow-hidden
+      w-full
+      rounded-[28px]
+      px-6
+      py-5
+      flex
+      items-center
+      justify-between
+      border
+      border-white/[0.08]
+      backdrop-blur-2xl
+      shadow-2xl
+    "
+          style={{
+            background:
+              "linear-gradient(135deg,#7C5CFF 0%,#5B8CFF 100%)",
+          }}
+        >
+          {/* Glow */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl rounded-full" />
 
-      <div className="flex-1 overflow-y-auto px-4 space-y-4 pb-4">
-        {/* Resume document preview card */}
-        <div className="rounded-2xl overflow-hidden" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
-          <div className="h-48 flex items-center justify-center" style={{ background: "linear-gradient(135deg,#1A1730,#12102A)" }}>
-            <div className="text-center space-y-2">
-              <div className="text-6xl">📄</div>
-              <p className="text-white font-bold text-[15px]">Vishal Singh</p>
-              <p className="text-white/50 text-[12px]">React Native Developer</p>
-              <div className="flex justify-center gap-2 mt-2">
-                <span className="text-[10px] px-2 py-0.5 rounded-full text-white/60" style={{ background: "rgba(255,255,255,0.08)" }}>2+ Years Exp</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full text-white/60" style={{ background: "rgba(255,255,255,0.08)" }}>5+ Apps</span>
-              </div>
+          <div className="flex items-center gap-4 z-10">
+            <div
+              className="
+          w-14
+          h-14
+          rounded-2xl
+          flex
+          items-center
+          justify-center
+          text-2xl
+          bg-white/15
+          border
+          border-white/10
+        "
+            >
+              📄
+            </div>
+
+            <div>
+              <p className="text-white text-[16px] font-semibold tracking-tight">
+                Resume
+              </p>
+
+              <p className="text-white/70 text-[12px] mt-1">
+                View complete resume PDF
+              </p>
             </div>
           </div>
-          <div className="px-4 py-3 border-t" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
-            <p className="text-white/40 text-[11px] text-center">Tap below to open full document</p>
-          </div>
-        </div>
 
-        {/* Quick summary */}
-        <div className="space-y-2">
-          {[
-            { icon: "💼", title: "Experience", desc: "Freelance React Native Developer • 2023–Present" },
-            { icon: "📱", title: "Specialty", desc: "Cross-platform mobile apps (iOS & Android)" },
-            { icon: "🛠️", title: "Stack", desc: "React Native, Expo, TypeScript, Supabase, Firebase" },
-            { icon: "🎓", title: "Skills", desc: "5+ production apps shipped, 95%+ crash-free sessions" },
-          ].map((item) => (
-            <div key={item.title} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
-              <span className="text-xl">{item.icon}</span>
-              <div>
-                <p className="text-white text-[12px] font-semibold">{item.title}</p>
-                <p className="text-white/50 text-[11px]">{item.desc}</p>
-              </div>
+          <div className="z-10">
+            <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center border border-white/10">
+              <span className="text-white text-lg">→</span>
             </div>
-          ))}
-        </div>
+          </div>
+        </motion.a>
 
-        {/* Action buttons */}
-        <div className="space-y-3">
-          <a
-            href={personalInfo.resumeUrl}
-            target="_blank"
-            className="w-full py-3.5 rounded-2xl text-center font-bold text-white text-[14px] flex items-center justify-center gap-2"
-            style={{ background: "linear-gradient(135deg,#6C63FF,#5046E5)" }}
-          >
-            <span>📄</span> Open Resume
-          </a>
-          <a
-            href={personalInfo.coverLetterUrl}
-            target="_blank"
-            className="w-full py-3.5 rounded-2xl text-center font-bold text-white/80 text-[14px] flex items-center justify-center gap-2"
-            style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}
-          >
-            <span>✉️</span> Open Cover Letter
-          </a>
-        </div>
+        {/* Cover Letter Button */}
+        <motion.a
+          whileTap={{ scale: 0.98 }}
+          href={personalInfo.coverLetterUrl}
+          target="_blank"
+          className="
+      relative
+      overflow-hidden
+      w-full
+      rounded-[28px]
+      px-6
+      py-5
+      flex
+      items-center
+      justify-between
+      border
+      border-white/[0.06]
+      backdrop-blur-2xl
+    "
+          style={{
+            background: "rgba(255,255,255,0.06)",
+          }}
+        >
+          {/* subtle glow */}
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/10 blur-3xl rounded-full" />
 
-        {/* Response time */}
-        <div className="rounded-2xl p-3 text-center" style={{ background: "rgba(108,99,255,0.12)", border: "1px solid rgba(108,99,255,0.25)" }}>
-          <p className="text-[#6C63FF] text-[12px] font-semibold">📬 Typically responds within 24 hours</p>
-          <p className="text-white/40 text-[11px] mt-0.5">{personalInfo.email}</p>
-        </div>
-      </div>
+          <div className="flex items-center gap-4 z-10">
+            <div
+              className="
+          w-14
+          h-14
+          rounded-2xl
+          flex
+          items-center
+          justify-center
+          text-2xl
+          bg-white/8
+          border
+          border-white/10
+        "
+            >
+              ✉️
+            </div>
 
-      {/* Home indicator */}
-      <div className="flex justify-center pb-4">
-        <div className="w-28 h-1 bg-white/20 rounded-full" />
+            <div>
+              <p className="text-white text-[16px] font-semibold tracking-tight">
+                Cover Letter
+              </p>
+
+              <p className="text-white/60 text-[12px] mt-1">
+                Read introduction letter
+              </p>
+            </div>
+          </div>
+
+          <div className="z-10">
+            <div className="w-10 h-10 rounded-full bg-white/8 flex items-center justify-center border border-white/10">
+              <span className="text-white text-lg">→</span>
+            </div>
+          </div>
+        </motion.a>
       </div>
     </motion.div>
   )

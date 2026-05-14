@@ -28,6 +28,7 @@ html, body {
   /* Hard-lock scroll on the page itself — the phone screen scrolls internally */
   height: 100dvh;
   overflow: hidden;
+  color: white;
 }
 
 /*
