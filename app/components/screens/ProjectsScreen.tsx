@@ -62,8 +62,9 @@ export default function ProjectsScreen({ onBack, onSelect }: ProjectsScreenProps
             transition={{ delay: i * 0.1 + 0.1, duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
             whileTap={{ scale: 0.98 }}
             style={{
-              borderRadius: 28,
-              padding: "24px",
+              borderRadius: 16,
+              padding: "8px",
+              marginTop: "8px",
               background: "linear-gradient(135deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.05) 100%)",
               backdropFilter: "blur(40px)",
               WebkitBackdropFilter: "blur(40px)",
@@ -146,17 +147,13 @@ export default function ProjectsScreen({ onBack, onSelect }: ProjectsScreenProps
           style={{
             background: "rgba(255,255,255,0.02)",
             borderStyle: "dashed",
+            marginTop: "8px",
           }}
         >
           <p className="text-white/40 text-[14px] font-medium tracking-wide">
             ✦ More projects coming soon ✦
           </p>
         </motion.div>
-      </div>
-
-      {/* Home indicator */}
-      <div className="flex justify-center pb-3 pt-2">
-        <div className="w-32 h-1 bg-white/20 rounded-full" />
       </div>
     </motion.div>
   )
