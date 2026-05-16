@@ -12,7 +12,10 @@ export default function ResumeScreen({ onBack }: ResumeScreenProps) {
   return (
     <motion.div
       className="absolute inset-0 flex flex-col"
-      style={{ background: "#0D0B1E", width: "100%", height: "100%" }}
+      style={{
+        background:
+          "radial-gradient(circle at top,#1E293B 0%,#0D0B1E 45%,#050507 100%)",
+      }}
       initial={{ x: "100%" }}
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
@@ -30,35 +33,28 @@ export default function ResumeScreen({ onBack }: ResumeScreenProps) {
         <h1 className="text-white text-[20px] font-bold flex-1 text-center pr-12">Resume</h1>
       </div>
       <div className="space-y-5">
-        {/* Resume Button */}
+        {/* Resume */}
         <motion.a
           whileTap={{ scale: 0.98 }}
           href={personalInfo.resumeUrl}
           target="_blank"
           className="
-      relative
-      overflow-hidden
-      w-full
-      rounded-[28px]
-      px-6
-      py-5
       flex
       items-center
       justify-between
+      rounded-[24px]
+      px-5
+      py-5
       border
-      border-white/[0.08]
-      backdrop-blur-2xl
-      shadow-2xl
+      border-white/[0.05]
+      bg-white/[0.03]
+      backdrop-blur-xl
+      active:opacity-90
+      transition-all
     "
-          style={{
-            background:
-              "linear-gradient(135deg,#7C5CFF 0%,#5B8CFF 100%)",
-          }}
         >
-          {/* Glow */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl rounded-full" />
-
-          <div className="flex items-center gap-4 z-10">
+          <div className="flex items-center gap-4">
+            {/* Icon */}
             <div
               className="
           w-14
@@ -67,60 +63,68 @@ export default function ResumeScreen({ onBack }: ResumeScreenProps) {
           flex
           items-center
           justify-center
-          text-2xl
-          bg-white/15
-          border
-          border-white/10
+          shrink-0
         "
+              style={{
+                background:
+                  "linear-gradient(135deg,#F97316,#EA580C)",
+              }}
             >
-              📄
+              <span className="text-[26px]">📄</span>
             </div>
 
+            {/* Text */}
             <div>
-              <p className="text-white text-[16px] font-semibold tracking-tight">
-                Resume
+              <p className="text-white text-[20px] font-semibold tracking-tight">
+                Open Resume
               </p>
 
-              <p className="text-white/70 text-[12px] mt-1">
-                View complete resume PDF
+              <p className="text-white/45 text-[13px] mt-1">
+                PDF • Updated recently
               </p>
             </div>
           </div>
 
-          <div className="z-10">
-            <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center border border-white/10">
-              <span className="text-white text-lg">→</span>
-            </div>
+          {/* Arrow */}
+          <div className="opacity-40">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="26"
+              height="26"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
           </div>
         </motion.a>
 
-        {/* Cover Letter Button */}
+        {/* Cover Letter */}
         <motion.a
           whileTap={{ scale: 0.98 }}
           href={personalInfo.coverLetterUrl}
           target="_blank"
           className="
-      relative
-      overflow-hidden
-      w-full
-      rounded-[28px]
-      px-6
-      py-5
       flex
       items-center
       justify-between
+      rounded-[24px]
+      px-5
+      py-5
       border
-      border-white/[0.06]
-      backdrop-blur-2xl
+      border-white/[0.05]
+      bg-white/[0.03]
+      backdrop-blur-xl
+      active:opacity-90
+      transition-all
     "
-          style={{
-            background: "rgba(255,255,255,0.06)",
-          }}
         >
-          {/* subtle glow */}
-          <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/10 blur-3xl rounded-full" />
-
-          <div className="flex items-center gap-4 z-10">
+          <div className="flex items-center gap-4">
+            {/* Icon */}
             <div
               className="
           w-14
@@ -129,30 +133,43 @@ export default function ResumeScreen({ onBack }: ResumeScreenProps) {
           flex
           items-center
           justify-center
-          text-2xl
-          bg-white/8
-          border
-          border-white/10
+          shrink-0
         "
+              style={{
+                background:
+                  "linear-gradient(135deg,#65A30D,#4D7C0F)",
+              }}
             >
-              ✉️
+              <span className="text-[24px]">✉️</span>
             </div>
 
+            {/* Text */}
             <div>
-              <p className="text-white text-[16px] font-semibold tracking-tight">
-                Cover Letter
+              <p className="text-white text-[20px] font-semibold tracking-tight">
+                Open Cover Letter
               </p>
 
-              <p className="text-white/60 text-[12px] mt-1">
-                Read introduction letter
+              <p className="text-white/45 text-[13px] mt-1">
+                DOCX • Professional introduction
               </p>
             </div>
           </div>
 
-          <div className="z-10">
-            <div className="w-10 h-10 rounded-full bg-white/8 flex items-center justify-center border border-white/10">
-              <span className="text-white text-lg">→</span>
-            </div>
+          {/* Arrow */}
+          <div className="opacity-40">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="26"
+              height="26"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
           </div>
         </motion.a>
       </div>
