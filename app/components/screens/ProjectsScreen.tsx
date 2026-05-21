@@ -23,7 +23,6 @@ export default function ProjectsScreen({ onBack, onSelect }: ProjectsScreenProps
     >
       <StatusBar />
 
-      {/* Header */}
       <div className="flex items-center gap-3 px-5 pt-4 pb-4 mt-2">
         <button
           onClick={onBack}
@@ -50,7 +49,6 @@ export default function ProjectsScreen({ onBack, onSelect }: ProjectsScreenProps
         </h1>
       </div>
 
-      {/* List */}
       <div className="flex-1 overflow-y-auto px-5 space-y-6 pb-10 scrollbar-hide pt-2">
         {projects.map((project, i) => (
           <motion.button
