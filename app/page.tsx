@@ -15,16 +15,26 @@ import ResumeScreen from "./components/screens/ResumeScreen"
 
 export default function PortfolioOS() {
   const [screen, setScreen] = useState<Screen>("lock")
-  const [prevScreen, setPrevScreen] = useState<Screen>("lock")
+  const [history, setHistory] = useState<Screen[]>([])
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [controlCenterOpen, setControlCenterOpen] = useState(false)
   const touchStartY = useRef(0)
   const phoneRef = useRef<HTMLDivElement>(null)
 
   const navigate = (to: Screen, project?: Project) => {
-    setPrevScreen(screen)
+    setHistory((prev) => [...prev, screen])
     if (project) setSelectedProject(project)
     setScreen(to)
+  }
+
+  const goBack = () => {
+    setHistory((prev) => {
+      if (prev.length === 0) return prev
+      const newHistory = [...prev]
+      const previousScreen = newHistory.pop()
+      if (previousScreen) setScreen(previousScreen)
+      return newHistory
+    })
   }
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -82,12 +92,12 @@ export default function PortfolioOS() {
               />
             )}
             {screen === "about" && (
-              <AboutScreen key="about" onBack={() => navigate("home")} onNavigate={navigate} />
+              <AboutScreen key="about" onBack={goBack} onNavigate={navigate} />
             )}
             {screen === "projects" && (
               <ProjectsScreen
                 key="projects"
-                onBack={() => navigate("home")}
+                onBack={goBack}
                 onSelect={(p) => navigate("project-detail", p)}
               />
             )}
@@ -95,17 +105,17 @@ export default function PortfolioOS() {
               <ProjectDetailScreen
                 key="project-detail"
                 project={selectedProject}
-                onBack={() => navigate("projects")}
+                onBack={goBack}
               />
             )}
             {screen === "skills" && (
-              <SkillsScreen key="skills" onBack={() => navigate("home")} />
+              <SkillsScreen key="skills" onBack={goBack} />
             )}
             {screen === "contact" && (
-              <ContactScreen key="contact" onBack={() => navigate("home")} />
+              <ContactScreen key="contact" onBack={goBack} />
             )}
             {screen === "resume" && (
-              <ResumeScreen key="resume" onBack={() => navigate("home")} />
+              <ResumeScreen key="resume" onBack={goBack} />
             )}
           </AnimatePresence>
 

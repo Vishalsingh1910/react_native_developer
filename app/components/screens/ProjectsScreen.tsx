@@ -13,8 +13,7 @@ export default function ProjectsScreen({ onBack, onSelect }: ProjectsScreenProps
     <motion.div
       className="absolute inset-0 flex flex-col"
       style={{
-        background:
-          "radial-gradient(circle at top,#1E293B 0%,#0D0B1E 45%,#050507 100%)",
+        background: "radial-gradient(circle at top, #1E293B 0%, #0D0B1E 45%, #050507 100%)",
       }}
       initial={{ x: "100%" }}
       animate={{ x: 0 }}
@@ -23,6 +22,7 @@ export default function ProjectsScreen({ onBack, onSelect }: ProjectsScreenProps
     >
       <StatusBar />
 
+      {/* Header */}
       <div className="flex items-center gap-3 px-5 pt-4 pb-4 mt-2">
         <button
           onClick={onBack}
@@ -49,88 +49,85 @@ export default function ProjectsScreen({ onBack, onSelect }: ProjectsScreenProps
         </h1>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-5 space-y-6 pb-10 scrollbar-hide pt-2">
+      <div className="flex-1 overflow-y-auto px-5 space-y-5 pb-10 scrollbar-hide pt-2">
         {projects.map((project, i) => (
           <motion.button
             key={project.id}
             onClick={() => onSelect(project)}
-            className="w-full text-left"
+            className="w-full text-left relative overflow-hidden group"
             initial={{ opacity: 0, y: 20, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: i * 0.1 + 0.1, duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
             whileTap={{ scale: 0.98 }}
             style={{
-              borderRadius: 16,
-              padding: "8px",
-              marginTop: "8px",
-              background: "linear-gradient(135deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.05) 100%)",
-              backdropFilter: "blur(40px)",
-              WebkitBackdropFilter: "blur(40px)",
-              border: "1px solid rgba(255,255,255,0.25)",
-              boxShadow: `
-                inset 0 0 0 1px rgba(255,255,255,0.1),
-                inset 0 1px 0 0 rgba(255,255,255,0.25),
-                inset 0 -1px 0 0 rgba(0,0,0,0.3),
-                0 8px 32px rgba(0,0,0,0.25),
-                0 2px 8px rgba(0,0,0,0.15)
-              `,
-              overflow: "hidden",
+              borderRadius: 24,
+              padding: "20px",
+              background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.15), 0 8px 32px rgba(0,0,0,0.3)",
             }}
           >
-            <div className="flex flex-col gap-5">
+            {/* Dynamic ambient glow based on project color */}
+            <div 
+              className="absolute -top-10 -right-10 w-32 h-32 rounded-full blur-3xl opacity-20 pointer-events-none transition-opacity group-hover:opacity-40"
+              style={{ background: project.color }}
+            />
+
+            <div className="flex flex-col gap-4 relative z-10">
               {/* Header: Icon + Info */}
-              <div className="flex items-center gap-4 w-full">
-                {/* App icon */}
-                <div
-                  className="w-14 h-14 rounded-[18px] flex items-center justify-center shrink-0 shadow-lg"
-                  style={{
-                    background: `linear-gradient(135deg, ${project.color}, ${project.color}dd)`,
-                    border: `1px solid ${project.color}55`,
-                  }}
-                >
-                  <span className="text-[26px]">
-                    {project.id === "cooking-buddy" ? "🍳" : "💪"}
-                  </span>
-                </div>
-
-                {/* Title & Tech */}
-                <div className="flex-1 min-w-0">
-                  <h2 className="text-white text-[19px] font-bold tracking-tight truncate">
-                    {project.name}
-                  </h2>
-                  <p className="text-white/50 text-[13px] font-medium mt-1 truncate">
-                    {project.tech.slice(0, 3).join(" • ")}
-                  </p>
-                </div>
-
-                {/* Arrow */}
-                <div className="opacity-30 shrink-0">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="white"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+              <div className="flex items-start justify-between w-full">
+                <div className="flex items-center gap-4">
+                  <div
+                    className="w-12 h-12 rounded-[16px] flex items-center justify-center shrink-0 shadow-lg"
+                    style={{
+                      background: `linear-gradient(135deg, ${project.color}, ${project.color}aa)`,
+                      border: `1px solid ${project.color}55`,
+                    }}
                   >
+                    <span className="text-[22px]">
+                      {project.id === "cooking-buddy" ? "🍳" : "💪"}
+                    </span>
+                  </div>
+                  <div>
+                    <h2 className="text-white text-[18px] font-bold tracking-tight">
+                      {project.name}
+                    </h2>
+                    <p className="text-[#00D4FF] text-[12px] font-semibold mt-0.5 tracking-wide uppercase">
+                      {project.category}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="opacity-30 shrink-0 mt-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="m9 18 6-6-6-6" />
                   </svg>
                 </div>
               </div>
 
-              {/* Highlights (Bullet Points) */}
-              <div className="w-full space-y-3 pt-5 border-t border-white/[0.05]">
-                {project.highlights.map((highlight, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <span className="text-white/40 text-[16px] mt-[-2px]">{"•"}</span>
-                    <p className="text-white/70 text-[14px] leading-relaxed flex-1">
-                      {highlight}
-                    </p>
-                  </div>
+              {/* Description Snippet */}
+              <p className="text-white/60 text-[13px] leading-relaxed line-clamp-2 font-medium">
+                {project.description}
+              </p>
+
+              {/* Tech Tags */}
+              <div className="flex flex-wrap gap-2 pt-2">
+                {project.tech.slice(0, 3).map(tech => (
+                  <span 
+                    key={tech} 
+                    className="px-2.5 py-1 rounded-lg text-[10px] font-bold tracking-wider"
+                    style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.8)" }}
+                  >
+                    {tech.toUpperCase()}
+                  </span>
                 ))}
+                {project.tech.length > 3 && (
+                  <span className="px-2 py-1 rounded-lg text-[10px] font-bold tracking-wider text-white/40">
+                    +{project.tech.length - 3}
+                  </span>
+                )}
               </div>
             </div>
           </motion.button>
@@ -141,14 +138,14 @@ export default function ProjectsScreen({ onBack, onSelect }: ProjectsScreenProps
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: projects.length * 0.1 + 0.2 }}
-          className="rounded-[28px] py-6 px-4 text-center border border-white/[0.08]"
+          className="rounded-[24px] py-6 px-4 text-center border border-white/[0.08]"
           style={{
             background: "rgba(255,255,255,0.02)",
             borderStyle: "dashed",
-            marginTop: "8px",
+            marginTop: "16px",
           }}
         >
-          <p className="text-white/40 text-[14px] font-medium tracking-wide">
+          <p className="text-white/40 text-[13px] font-bold tracking-widest uppercase">
             ✦ More projects coming soon ✦
           </p>
         </motion.div>

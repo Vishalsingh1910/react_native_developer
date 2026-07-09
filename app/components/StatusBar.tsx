@@ -25,6 +25,10 @@ export default function StatusBar({ light = false }: { light?: boolean }) {
   return (
     <div className={`flex items-center justify-between px-5 pt-2 pb-0 ${color} z-10 relative`} style={{ minHeight: 45, paddingLeft: 10, paddingRight: 10 }}>
       <span className="text-[15px] font-semibold tracking-tight" style={{ color: "white" }}>{time}</span>
+      
+      {/* Dynamic island */}
+      <div className="absolute top-1 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full shadow-md z-20" />
+
       <div className="flex items-center gap-[5px]">
         {/* Signal bars */}
         <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor" opacity="0.9" style={{ color: "white" }}>

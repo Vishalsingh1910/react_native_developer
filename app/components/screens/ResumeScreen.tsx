@@ -32,7 +32,7 @@ export default function ResumeScreen({ onBack }: ResumeScreenProps) {
         </button>
         <h1 className="text-white text-[18px] font-bold flex-1 text-center pr-10">Resume</h1>
       </div>
-      
+
       <div className="space-y-5 px-5">
         {/* Resume */}
         <motion.a
@@ -43,7 +43,7 @@ export default function ResumeScreen({ onBack }: ResumeScreenProps) {
           style={{
             borderRadius: 16,
             padding: "8px",
-            marginTop:"8px",
+            marginTop: "8px",
             background: "linear-gradient(135deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.05) 100%)",
             backdropFilter: "blur(40px)",
             WebkitBackdropFilter: "blur(40px)",
@@ -109,7 +109,7 @@ export default function ResumeScreen({ onBack }: ResumeScreenProps) {
           style={{
             borderRadius: 16,
             padding: "8px",
-            marginTop:"8px",
+            marginTop: "8px",
             background: "linear-gradient(135deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.05) 100%)",
             backdropFilter: "blur(40px)",
             WebkitBackdropFilter: "blur(40px)",
